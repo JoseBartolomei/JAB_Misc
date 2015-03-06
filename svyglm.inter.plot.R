@@ -33,7 +33,7 @@ inter.tabl <- data.frame(predictor = sort(rep(x.names, cov.length)),
 
 ## plot the created table
 covar <- names(glm.int$xlevel)[2]
-pdf(file = paste("G:/ORP_Workspace/BRFSS/QualityOfLife/Plots/Rplots_", covar, ".pdf", sep = ""))
+pdf(file = paste(".~ File", covar, ".pdf", sep = ""))
 
 with(inter.tabl, interaction.plot(x.factor = predictor, 
               trace.factor = covariate, response = logodds, fun = mean))
