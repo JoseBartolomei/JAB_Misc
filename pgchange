@@ -1,0 +1,87 @@
+Percent Growth Change
+========================================================
+
+```{r}
+old <- sum(hcu.pri.a$ed)
+new <- sum(hcu.post.a$ed)
+Nyears <- 1
+```
+
+```{r}
+#annual rate of growth
+PgrowthChange <- (((new/old)^ (1/ Nyears)) - 1) * 100
+PgrowthChange
+```
+
+```{r}
+# Average Annual Growth Rate per year
+PercentChangeY <- (((log(new) - log(old)) / old) * 100)
+PercentChangeY
+```
+
+```{r}
+Average Annual Growth Rate
+PercentChange <- (((new - old) / old) * 100) / Nyears
+PercentChange
+```
+
+```{r Outc_Delta}
+D.opv <- round(Delt(sum(isc.pri.df$opv), sum(isc.post.df$opv), k = 0,
+                        type = c("arithmetic")) * 100, 2)
+
+D.hosp <- round(Delt(sum(isc.pri.df$inpatient), sum(isc.post.df$inpatient), 
+                   k = 0, type = c("arithmetic")) * 100, 2)
+
+D.ed <- round(Delt(sum(isc.pri.df$ed), sum(isc.post.df$ed), k = 0,
+                       type = c("arithmetic")) * 100, 2)
+
+D.comb <- round(Delt(sum(isc.pri.df$inpatient) + sum(isc.pri.df$ed),
+     sum(isc.post.df$inpatient) + sum(isc.post.df$ed),
+     k = 0, type = c("arithmetic")) * 100, 2)
+```
+
+```{r iscSubset}
+isc.pri.df <- hcu.pri.a[hcu.pri.a$rcat == "isc",]
+isc.post.df <- hcu.post.a[hcu.post.a$rcat == "isc",]
+```
+
+```{r isc_Delta}
+D.isc.opv <- round(Delt(sum(isc.pri.df$opv), sum(isc.post.df$opv), k = 0,
+                        type = c("arithmetic")) * 100, 2)
+
+D.isc.hosp <- round(Delt(sum(isc.pri.df$inpatient), sum(isc.post.df$inpatient), 
+                   k = 0, type = c("arithmetic")) * 100, 2)
+
+D.isc.ed <- round(Delt(sum(isc.pri.df$ed), sum(isc.post.df$ed), k = 0,
+                       type = c("arithmetic")) * 100, 2)
+
+D.isc.comb <- round(Delt(sum(isc.pri.df$inpatient) + sum(isc.pri.df$ed),
+     sum(isc.post.df$inpatient) + sum(isc.post.df$ed),
+     k = 0, type = c("arithmetic")) * 100, 2)
+```
+
+```{r lraSubset}
+lra.pri.df <- hcu.pri.a[hcu.pri.a$rcat == "iclra",]
+lra.post.df <- hcu.post.a[hcu.post.a$rcat == "iclra",]
+```
+
+```{r lra_Delta}
+D.lra.opv <- round(Delt(sum(lra.pri.df$opv), sum(lra.post.df$opv), k = 0, 
+                        type = c("arithmetic")) * 100, 2)
+
+D.lra.hosp <- round(Delt(sum(lra.pri.df$inpatient), sum(lra.post.df$inpatient), 
+                   k = 0, type = c("arithmetic")) * 100, 2)
+
+D.lra.ed <- round(Delt(sum(lra.pri.df$ed), sum(lra.post.df$ed), k = 0,
+                       type = c("arithmetic")) * 100, 2)
+
+D.lra.comb <- round(Delt(sum(lra.pri.df$inpatient) + sum(lra.pri.df$ed),
+     sum(lra.post.df$inpatient) + sum(lra.post.df$ed),
+     k = 0, type = c("arithmetic")) * 100, 2)
+```
+```{r Delta_tableby_itt}
+data.frame(outcome = c("out patient", "hospital", "ed", "hosp+ed"),
+          isc = c(D.isc.opv, D.isc.hosp, D.isc.ed, D.isc.comb),
+          lra = c(D.lra.opv, D.lra.hosp, D.lra.ed, D.lra.comb))
+```
+
